@@ -314,8 +314,55 @@ This renders the `index.html` file that will be used to interact with the backen
 
 - `403` if the user is not logged in
 
+
 ==========ADDED===========
 
 ### DOM
 
-#### 
+#### `POST /api/doms` - Create a new dom
+
+**Body**
+
+- `domname` _{string}_ - The dom's name
+- `displayedname` _{string}_ - The dom's displayed name
+- `description` _{string}_ - The dom's description
+
+**Returns**
+
+- A success message
+- An object with the created dom's details 
+
+**Throws**
+
+- `403` if the user is not logged in
+- `400` if dom's name/ displayed name/ description is in the wrong format
+- `409` if dom's name is already in use by the user
+
+#### `PUT /api/doms` - Update the dom's profile
+
+**Body** _(no need to add fields that are not being changed)_
+
+- `domname` _{string}_ - The dom's name
+- `displayedname` _{string}_ - The dom's displayed name
+- `description` _{string}_ - The dom's description
+
+**Returns**
+
+- A success message
+- An object with the update dom's details
+
+**Throws**
+
+- `403` if the user is not logged in
+- `400` if dom's name/ displayed name/ description is in the wrong format
+- `409` if dom's name is already in use by the user
+
+#### `DELETE /api/doms` - Delete dom
+
+**Returns**
+
+- A success message
+
+**Throws**
+
+- `403` if the user is not logged in
