@@ -3,68 +3,62 @@ import {Schema, model} from 'mongoose';
 import type {User} from '../user/model';
 
 /**
- * This file defines the properties stored in a Dom
+ * This file defines the properties stored in a Freet
  * DO NOT implement operations here ---> use collection file
  */
 
-// Type definition for User on the backend
-export type Dom = {
+// Type definition for Freet on the backend
+export type Alert = {
   _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
   authorId: Types.ObjectId;
-  domname: string;
-  displayedname: string;
-  description: string;
+  freetId: Types.ObjectId;
   dateCreated: Date;
+  value: number;
   dateModified: Date;
 };
 
-export type PopulatedDom = {
+export type PopulatedAlert = {
   _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
   authorId: User;
-  domname: string;
-  displayedname: string;
-  description: string;
+  freetId: Types.ObjectId;
   dateCreated: Date;
+  value: number;
   dateModified: Date;
 };
 
 // Mongoose schema definition for interfacing with a MongoDB table
-// Doms stored in this table will have these fields, with the
+// Freets stored in this table will have these fields, with the
 // type given by the type property, inside MongoDB
-const DomSchema = new Schema({
-  // The authorId
+const AlertSchema = new Schema<Alert>({
+  // The author userId
   authorId: {
     // Use Types.ObjectId outside of the schema
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'User'
   },
-  // The dom's name
-  domname: {
-    type: String,
-    required: true
+  freetId: {
+    // Use Types.ObjectId outside of the schema
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'Freet'
   },
-  // The dom's displayed name
-  displayedname: {
-    type: String,
-    required: false
-  },
-  // The dom's description
-  description: {
-    type: String,
-    required: false
-  },
-  // The date the dom was created
+  // The date the freet was created
   dateCreated: {
     type: Date,
     required: true
   },
-  // The date the dom was modified
+  // The value of the alert
+  value: {
+    type: Number,
+    required: true
+  },
+  // The date the freet was modified
   dateModified: {
     type: Date,
     required: true
   }
 });
 
-const DomModel = model<Dom>('Dom', DomSchema);
-export default DomModel;
+const AlertModel = model<Alert>('Alert', AlertSchema);
+export default AlertModel;

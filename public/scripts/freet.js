@@ -17,8 +17,14 @@ function viewFreetsByAuthor(fields) {
     .catch(showResponse);
 }
 
+function viewFreetsByDom(fields) {
+  fetch(`/api/freets?dom=${fields.dom}`)
+    .then(showResponse)
+    .catch(showResponse);
+}
+
 function createFreet(fields) {
-  fetch('/api/freets', {method: 'POST', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
+  fetch(`/api/freets/${fields.dom}`, {method: 'POST', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
     .then(showResponse)
     .catch(showResponse);
 }
@@ -33,4 +39,16 @@ function deleteFreet(fields) {
   fetch(`/api/freets/${fields.id}`, {method: 'DELETE'})
     .then(showResponse)
     .catch(showResponse);
+}
+
+function alertFreet(fields) {
+  fetch(`/api/alerts/${fields.freetId}`, {method: 'POST', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
+  .then(showResponse)
+  .catch(showResponse);
+}
+
+function unalertFreet(fields) {
+  fetch(`/api/alerts/${fields.freetId}`, {method: 'DELETE'})
+  .then(showResponse)
+  .catch(showResponse);
 }

@@ -1,7 +1,9 @@
 import type {NextFunction, Request, Response} from 'express';
 import express from 'express';
 import FreetCollection from './collection';
+import DomCollection from '../dom/collection';
 import * as userValidator from '../user/middleware';
+import * as domValidator from '../dom/middleware';
 import * as freetValidator from '../freet/middleware';
 import * as util from './util';
 
@@ -49,10 +51,44 @@ router.get(
 );
 
 /**
+ * Get freets by dom.
+ *
+ * @name GET /api/freets?domId=id
+ *
+ * @return {FreetResponse[]} - An array of freets created by user with id, domId
+ * @throws {400} - If domId is not given
+ * @throws {404} - If no user has given domId
+ *
+ */
+ router.get(
+  '/',
+  async (req: Request, res: Response, next: NextFunction) => {
+    // Check if domId query parameter was supplied
+    if (req.query.dom !== undefined) {
+      next();
+      return;
+    }
+
+    const allFreets = await FreetCollection.findAll();
+    const response = allFreets.map(util.constructFreetResponse);
+    res.status(200).json(response);
+  },
+  [
+    domValidator.isDomExists
+  ],
+  async (req: Request, res: Response) => {
+    const domFreets = await FreetCollection.findAllByDomId(req.body.content);
+    const response = domFreets.map(util.constructFreetResponse);
+    res.status(200).json(response);
+  }
+);
+
+/**
  * Create a new freet.
  *
- * @name POST /api/freets
+ * @name POST /api/freets?domId=id
  *
+ * @param {string} domId - The id of the dom
  * @param {string} content - The content of the freet
  * @return {FreetResponse} - The created freet
  * @throws {403} - If the user is not logged in
@@ -63,11 +99,12 @@ router.post(
   '/',
   [
     userValidator.isUserLoggedIn,
+    domValidator.isDomExists,
     freetValidator.isValidFreetContent
   ],
   async (req: Request, res: Response) => {
     const userId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
-    const freet = await FreetCollection.addOne(userId, req.body.content);
+    const freet = await FreetCollection.addOne(userId, req.body.domId, req.body.content);
 
     res.status(201).json({
       message: 'Your freet was created successfully.',

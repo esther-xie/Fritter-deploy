@@ -43,6 +43,33 @@ const isValidFreetContent = (req: Request, res: Response, next: NextFunction) =>
   next();
 };
 
+// TODO
+const isUserNotFreetAuthor = async (req: Request, res: Response, next: NextFunction)=> {
+  const freet = await FreetCollection.findOne(req.params.freetId);
+  const userId = freet.authorId._id;
+  if (req.session.userId === userId.toString()) {
+    res.status(403).json({
+      error: 'Cannot alert your own freets.'
+    });
+    return;
+  }
+  next();
+};
+
+// const isUserFreetAuthor = (req: Request, res: Response, next: NextFunction)=> {
+//   const freet = FreetCollection.findOneByAuthorIdAndFreetId(req.session.userId, req.params.freetId);
+//   if (!freet) {
+//     res.status(403).json({
+//       error: {
+//         freetNotFound: `You have not alerted this freet.`
+//       }
+//     });
+//     return;
+//   }
+
+//   next();
+// };
+
 /**
  * Checks if the current user is the author of the freet whose freetId is in req.params
  */
@@ -51,7 +78,7 @@ const isValidFreetModifier = async (req: Request, res: Response, next: NextFunct
   const userId = freet.authorId._id;
   if (req.session.userId !== userId.toString()) {
     res.status(403).json({
-      error: 'Cannot modify other users\' freets.'
+      error: 'Cannot modify others freets.'
     });
     return;
   }
@@ -62,5 +89,6 @@ const isValidFreetModifier = async (req: Request, res: Response, next: NextFunct
 export {
   isValidFreetContent,
   isFreetExists,
-  isValidFreetModifier
+  isValidFreetModifier,
+  isUserNotFreetAuthor,
 };

@@ -9,37 +9,33 @@ import type {Dom} from '../dom/model';
  */
 
 // Type definition for Freet on the backend
-export type Freet = {
+export type Follow = {
   _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
-  authorId: Types.ObjectId;
-  domId: Types.ObjectId;
+  follower: Types.ObjectId;
+  followingdom: Types.ObjectId;
   dateCreated: Date;
-  content: string;
-  dateModified: Date;
 };
 
-export type PopulatedFreet = {
+export type PopulatedFollow = {
   _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
-  authorId: User;
-  domId: Dom;
+  follower: User;
+  followingdom: Dom;
   dateCreated: Date;
-  content: string;
-  dateModified: Date;
 };
 
 // Mongoose schema definition for interfacing with a MongoDB table
 // Freets stored in this table will have these fields, with the
 // type given by the type property, inside MongoDB
-const FreetSchema = new Schema<Freet>({
+const FollowSchema = new Schema<Follow>({
   // The author userId
-  authorId: {
+  follower: {
     // Use Types.ObjectId outside of the schema
     type: Schema.Types.ObjectId,
     required: true,
-    ref: 'User'
+    ref: 'Uer'
   },
   // The domId
-  domId: {
+  followingdom: {
     // Use Types.ObjectId outside of the schema
     type: Schema.Types.ObjectId,
     required: true,
@@ -50,17 +46,7 @@ const FreetSchema = new Schema<Freet>({
     type: Date,
     required: true
   },
-  // The content of the freet
-  content: {
-    type: String,
-    required: true
-  },
-  // The date the freet was modified
-  dateModified: {
-    type: Date,
-    required: true
-  }
 });
 
-const FreetModel = model<Freet>('Freet', FreetSchema);
-export default FreetModel;
+const FollowModel = model<Follow>('Follow', FollowSchema);
+export default FollowModel;

@@ -366,3 +366,107 @@ This renders the `index.html` file that will be used to interact with the backen
 **Throws**
 
 - `403` if the user is not logged in
+
+
+### FOLLOW
+
+#### `POST /api/follows/:domId?` Follow a dom
+
+**Body**
+
+- `domID` _{??}_ - The dom to follow
+
+**Return**
+
+- A success message
+
+**Throw**
+
+- `403` if `user` is not logged in
+- `403` if `user` is the author of the dom with ID `domID`
+- `403` if `user` has already followed the dom with ID `domID`
+- `403` if the dom with ID `domID` is locked
+- `404` if `domID` is invalid
+
+#### `DELETE /api/follows/:domId?` Unfollow a dom
+
+**Return**
+
+- A success message
+
+**Throw**
+
+- `403` if `user` is not logged in
+- `403` if `user` is the author of the dom with ID `domID`
+- `403` if `user` has not followed the dom with ID `domID`
+- `404` if `domID` is invalid
+
+
+#### `GET /api/follows/following` Get all of the doms that the user follows
+
+**Return**
+
+- An array containing all of the domIDs that the user follows
+
+**Throw**
+
+- `403` if `user` is not logged in
+
+#### `GET /api/follows/following/freets` Get all of the freets under the doms that the user follows
+
+**Return**
+
+- An array containing all freets of the doms that the user follows
+
+**Throw**
+
+- `403` if `user` is not logged in
+
+#### `GET /api/follows/followers/:domId?` Get all of the followers of the dom
+
+**Return**
+
+- An array containing all freets of the doms that the user follows
+
+**Throw**
+
+- `403` if `user` is not logged in
+
+
+### ALERT
+
+#### `POST /api/alert/:freetId?` Add `alert` to the freet associated with `freetId`
+
+**Body**
+
+- `alert`  _{integer}_ - the alert added to the freet
+
+**Return**
+
+- A success message
+- An array of users who added `alert` to the freet associated with `freetId`
+
+**Throws**
+
+- `403` if `user` is not logged in
+- `403` if `user` is the author of the freet with ID `freetID`
+- `403` if `user` has already added alert to the freet with ID `freetID`
+- `404` if `freetID` is invalid
+
+#### `DELETE /api/alert/:freetId?` Remove 'alert' `alert` to the freet associated with `freetId`
+
+**Body**
+
+- `alert`  _{integer}_ - the alert added to the freet
+
+**Return**
+
+- A success message
+- An array of users who added `alert` to the freet associated with `freetId`
+
+**Throws**
+
+- `403` if `user` is not logged in
+- `403` if `user` is the author of the freet with ID `freetID`
+- `403` if `user` has not added alert to the freet with ID `freetID`
+- `404` if `freetID` is invalid

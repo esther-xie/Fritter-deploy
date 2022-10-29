@@ -5,6 +5,8 @@
   <meta name="author" content="6.170 Staff">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="/scripts/dom.js"></script>
+  <script src="/scripts/follow.js"></script>
   <script src="/scripts/freet.js"></script>
   <script src="/scripts/user.js"></script>
   <script src="/scripts/index.js"></script>
@@ -87,8 +89,61 @@
           <input type="submit" value="View Freets By Author">
         </form>
 
+        <form id="view-freets-by-dom">
+          <h3>View Freets By Dom</h3>
+          <div>
+            <label for="dom">Dom Id:</label>
+            <input id="dom" name="dom">
+          </div>
+          <input type="submit" value="View Freets By Dom">
+        </form>
+
+        <!-- FOLLOW -->
+        
+        <form id="view-freets-by-following">
+          <h3>View Freets Of Your Following Doms</h3>
+          <input type="submit" value="View Freets Of Your Following Doms">
+        </form>
+
+        <form id="view-following-doms">
+          <h3>View The Doms You Are Following</h3>
+          <input type="submit" value="View The Doms You Are Following">
+        </form>
+
+        <form id="view-followers">
+          <h3>View the Followers of the Dom</h3>
+          <div>
+            <label for="dom">Dom Id:</label>
+            <input id="dom" name="dom">
+          </div>
+          <input type="submit" value="View the Followers of the Dom">
+        </form>
+
+        <form id="follow-dom">
+          <h3>Follow the Dom</h3>
+          <div>
+            <label for="dom">Dom Id:</label>
+            <input id="dom" name="dom">
+          </div>
+          <input type="submit" value="Follow">
+        </form>
+
+        <form id="unfollow-dom">
+          <h3>Unfollow the Dom</h3>
+          <div>
+            <label for="dom">Dom Id:</label>
+            <input id="dom" name="dom">
+          </div>
+          <input type="submit" value="Unfollow">
+        </form>
+
+        <!-- FREET -->
         <form id="create-freet">
           <h3>Create Freet</h3>
+          <div>
+            <label for="dom">Dom Id:</label>
+            <input id="dom" name="dom">
+          </div>
           <div>
             <label for="content">Content:</label>
             <textarea id="content" name="content"></textarea>
@@ -117,6 +172,90 @@
           </div>
           <input type="submit" value="Delete Freet">
         </form>
+
+        <!-- ALERT -->
+        <form id="alert-freet">
+          <h3>Alert Freet</h3>
+          <div>
+            <label for="freetId">Freet ID:</label>
+            <input id="freetId" name="freetId">
+          </div>
+          <div>
+            <label for="alert">Alert</label>
+            <!-- <input type="radio" name="alert" value = 1/> Alert
+            <input type="radio" name="alert" value = -1/> Peace -->
+            <input id="value" name="value">
+          </div>
+          <input type="submit" value="Submit">
+        </form>
+
+        <form id="cancel-alert-freet">
+          <h3>Cancel Alert</h3>
+          <div>
+            <label for="freetId">Freet ID:</label>
+            <input id="freetId" name="freetId">
+          </div>
+          <input type="submit" value="Cancel">
+        </form>
+
+        <!-- DOM -->
+        <form id="create-dom">
+          <h3>Create Dom</h3>
+          <div>
+            <label for="domname">Dom name:</label>
+            <input id="domname" name="domname">
+          </div>
+          <div>
+            <label for="displayedname">Displayed name:</label>
+            <input id="displayedname" name="displayedname">
+          </div>
+          <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"></textarea>
+          </div>
+          <input type="submit" value="Create Dom">
+        </form>
+
+        <form id="delete-dom">
+          <h3>Delete Dom</h3>
+          <div>
+            <label for="id">ID:</label>
+            <input id="id" name="id">
+          </div>
+          <input type="submit" value="Delete Dom">
+        </form>
+
+      <form id="edit-dom">
+        <h3>Edit Dom</h3>
+        <div>
+          <label for="id">ID:</label>
+          <input id="id" name="id">
+        </div>
+        <div>
+          <label for="domname">New Dom Name:</label>
+          <input id="domname" name="domname">
+        </div>
+        <div>
+          <label for="displayedname">New Displayed Name:</label>
+          <input id="displayedname" name="displayedname">
+        </div>
+        <div>
+          <label for="description">New Description:</label>
+          <input id="description" name="description">
+        </div>
+        <input type="submit" value="Edit Dom">
+      </form>
+
+      <form id="view-doms-by-author">
+        <h3>View Doms By Author</h3>
+        <div>
+          <label for="author">Author:</label>
+          <input id="author" name="author">
+        </div>
+        <input type="submit" value="View Doms By Author">
+      </form>
+
+
       </div>
     </section>
     <section>

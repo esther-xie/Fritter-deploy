@@ -1,13 +1,16 @@
 import type {HydratedDocument} from 'mongoose';
 import moment from 'moment';
-import type {Dom} from './model';
+import type {Dom, PopulatedDom} from '../dom/model';
 
 // property of the Dom type
 type DomResponse = {
   _id: string;
+  author: string;
   domname: string;
   displayedname: string;
+  description: string;
   dateCreated: string;
+  dateModified: string;
 };
 
 /**
@@ -26,16 +29,21 @@ const formatDate = (date: Date): string => moment(date).format('MMMM Do YYYY, h:
  * @param {HydratedDocument<Dom>} dom - A dom object
  * @returns {DomResponse} - The dom object response
  */
-const constructDomResponse = (user: HydratedDocument<Dom>): DomResponse => {
-  const domCopy: Dom = {
+const constructDomResponse = (dom: HydratedDocument<Dom>): DomResponse => {
+  const domCopy: PopulatedDom = {
     ...dom.toObject({
       versionKey: false // Cosmetics; prevents returning of __v property
     })
   };
+  const {username} = domCopy.authorId;
+  delete domCopy.authorId;
   return {
     ...domCopy,
     _id: domCopy._id.toString(),
-    dateCreated: formatDate(dom.dateCreated)
+    author: username,
+    domname: domCopy.domname.toString(),
+    dateCreated: formatDate(dom.dateCreated),
+    dateModified: formatDate(dom.dateModified)
   };
 };
 
