@@ -24,7 +24,7 @@ import DomCollection from '../dom/collection';
  * Checks if a dom name in req.body is already used by the user
  */
 const isDomnameNotAlreadyInUse = async (req: Request, res: Response, next: NextFunction) => {
-  const dom = await DomCollection.findOneByDomnameandUser(req.body.username, req.params.domname);
+  const dom = await DomCollection.findOneByDomnameandUser(req.session.userId, req.params.domname);
 
   // If the current session user wants to change the dom name to one which matches
   // the current one irrespective of the case, we should allow them to do so

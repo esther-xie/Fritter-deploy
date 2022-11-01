@@ -86,7 +86,7 @@ router.get(
 /**
  * Create a new freet.
  *
- * @name POST /api/freets?domId=id
+ * @name POST /api/freets
  *
  * @param {string} domId - The id of the dom
  * @param {string} content - The content of the freet

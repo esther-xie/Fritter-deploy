@@ -58,13 +58,12 @@ class DomCollection {
   /**
    * Find a dom by dom name (case insensitive) and username.
    *
-   * @param {string} username - The username
+   * @param {string} authorId - The username
    * @param {string} domname - The name of the dom to find
    * @return {Promise<HydratedDocument<Dom>> | Promise<null>} - The dom with the given name, if any
    */
-  static async findOneByDomnameandUser(username: string, domname: string): Promise<Array<HydratedDocument<Dom>>> {
-    const author = await UserCollection.findOneByUsername(username);
-    return DomModel.find({authorId: author._id}, {domname: domname}).populate('dateModified');
+  static async findOneByDomnameandUser(authorId: Types.ObjectId | string, domname: string): Promise<Array<HydratedDocument<Dom>>> {
+    return DomModel.findOne({authorId: authorId, domname: domname}).populate('dateModified');
   }
   
   /**
